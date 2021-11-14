@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -12,6 +11,13 @@ const [attempts,setAttempts] = useState(0)
 const [numPress,setNumPress] = useState()
 const [randomNum, setRandomNum] = useState(Math.floor(Math.random() * (9 - 1 + 1) + 1))
 const [right,setRight] = useState()
+
+const reset = ()=>{
+  setScore(0);
+  setAttempts(0);
+  setNumPress();
+  setRandomNum(Math.floor(Math.random() * (9 - 1 + 1) + 1))
+}
 
 
 const check = (num) =>{
@@ -118,11 +124,26 @@ setRight(false)
 <Text style={{fontSize: 30, fontWeight: 700}}>You Finished The Match</Text>
 <Text style={{fontSize: 20, marginVertical:10}}>Your Total Score Is <Text style={{color:"#20A400", fontSize: 30,fontWeight:700}}>{score}</Text></Text>
 <Text style={{fontSize: 20}}>It Took You <Text style={{color:"#FF0000", fontSize: 30, fontWeight:700}}>{attempts}</Text> Attempts</Text>
+
+<TouchableOpacity onPress={()=>{
+  setStart(true);
+  setFinal(false);
+  reset();}} style= {styles.button } >
+    <Text  style= {styles.btnText }>Finish</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={()=>{
+    setFinal(false);
+  reset();
+  setGameScreen(true)
+  }} style= {styles.button } >
+    <Text  style= {styles.btnText }>Play Again</Text>
+  </TouchableOpacity>
+
 </View>
 : null}
       
 
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -153,7 +174,7 @@ const styles = StyleSheet.create({
   },
   btnText:{
     color: "white",
-    fontWeight: 600,
+    fontWeight: "500",
     fontSize: 20,
   },
   digits:{
@@ -164,7 +185,7 @@ const styles = StyleSheet.create({
 
   },
   row:{
-    display:" flex",
+    
     flexDirection: "row",
     justifyContent:"space-between",
     marginTop: 10
@@ -174,14 +195,14 @@ const styles = StyleSheet.create({
     textAlign:"center",
     fontSize: 30,
     color:"#FF0000",
-    fontWeight: 700,
+    fontWeight: "700",
     marginVertical: 20
   },
   numPressRight:{
     textAlign:"center",
     fontSize: 30,
     color:"#20A400",
-    fontWeight: 700,
+    fontWeight: "700",
     marginVertical: 20
   },
   heading:{
